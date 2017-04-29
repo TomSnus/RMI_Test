@@ -18,5 +18,10 @@ public class Server {
         Registry r = LocateRegistry.createRegistry(1099);
         r.bind("Account", stub);
 
+        IAuthority auth = new AuthorityImpl();
+        IAuthority stubAuth = (IAuthority) UnicastRemoteObject.exportObject(auth, 0);
+
+        Registry regist = LocateRegistry.getRegistry("localhost", 1099);;
+        regist.bind("Authority", stubAuth);
     }
 }
